@@ -3,3 +3,6 @@ start:
 
 install:
 	poetry install
+
+build:
+	./build.sh
