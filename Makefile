@@ -6,3 +6,9 @@ install:
 
 build:
 	./build.sh
+
+make-msg:
+	poetry run python manage.py makemessages -l en
+
+locale:
+	poetry run python manage.py compilemessages --ignore=.venv
