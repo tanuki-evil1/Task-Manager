@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions', # Dev
     'django_bootstrap5',
     'task_manager',
     'task_manager.users',
@@ -127,7 +128,7 @@ LANGUAGES = [
     ('ru', 'Russian'),
 ]
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 

@@ -12,3 +12,6 @@ make-msg:
 
 locale:
 	poetry run python manage.py compilemessages --ignore=.venv
+
+shell:
+	poetry run python manage.py shell_plus --print-sql
