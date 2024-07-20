@@ -1,6 +1,8 @@
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView
+from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.views import View
 
 from task_manager.forms import LoginUserForm
@@ -11,23 +13,12 @@ class IndexView(View):
         return render(request, 'index.html')
 
 
-class UserLoginView(View):
-    def get(self, request, *args, **kwargs):
-        form = LoginUserForm()
-        return render(request, 'login.html', {'form': form})
+class UserLoginView(SuccessMessageMixin, LoginView):
+    authentication_form = LoginUserForm
+    template_name = 'login.html'
+    success_message = 'Вы залогинены'
+    next_page = reverse_lazy('index')
 
-    def post(self, request, *args, **kwargs):
-        form = LoginUserForm(request.POST)
-
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(request, username=username, password=password)
-            if user and user.is_active:
-                login(request, user)
-                return redirect('users_index')
-        print(form.errors)
-        return render(request, 'login.html', {'form': form})
 
 
 class UserLogoutView(View):

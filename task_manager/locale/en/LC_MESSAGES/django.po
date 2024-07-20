@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-18 09:16+0000\n"
+"POT-Creation-Date: 2024-07-20 19:58+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
 #: task_manager/templates/base.html:7 task_manager/templates/base.html:13
 msgid "Менеджер задач"
 msgstr "Task Manager"
@@ -33,14 +34,14 @@ msgstr "Sign In"
 msgid "Регистрация"
 msgstr "Sign Up"
 
-#: task_manager/templates/index.html:8
+#: task_manager/templates/index.html:11
 msgid "Привет от Tanuki!"
 msgstr "Hello from Tanuki!"
 
-#: task_manager/templates/index.html:9
+#: task_manager/templates/index.html:12
 msgid "Backend Python Developer"
 msgstr "Backend Python Developer"
 
-#: task_manager/templates/index.html:11
+#: task_manager/templates/index.html:15
 msgid "Узнать больше"
 msgstr "Learn More"

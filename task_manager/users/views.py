@@ -1,56 +1,37 @@
-from django.shortcuts import render, redirect
-from django.views import View
-from django.contrib.auth.models import User
+from django.contrib.messages.views import SuccessMessageMixin
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .forms import UserForm
+from .models import User
+from .utils import UserIsOwnerMixin, AuthRequiredMixin
 
 
-class IndexView(View):
-    def get(self, request, *args, **kwargs):
-        users = User.objects.all()
-        return render(request, 'users/index.html', {'users': users})
+class IndexView(ListView):
+    model = User
+    template_name = 'users/index.html'
+    context_object_name = 'users'
 
 
-class UserCreateView(View):
-    def get(self, request, *args, **kwargs):
-        form = UserForm()
-        return render(request, 'users/create.html', {'form': form})
-
-    def post(self, request, *args, **kwargs):
-        form = UserForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.set_password(form.cleaned_data['password1']) # Посмотреть базу данных
-            user.save()
-            return redirect('users_index')
-        return render(request, 'users/create.html', {'form': form})
+class UserCreateView(SuccessMessageMixin, CreateView):
+    model = User
+    form_class = UserForm
+    template_name = 'users/create.html'
+    success_url = reverse_lazy('login')
+    success_message = 'Пользователь успешно зарегистрирован'
 
 
-class UserUpdateView(View):
-    def get(self, request, *args, **kwargs):
-        user_id = kwargs.get('pk')
-        user = User.objects.get(id=user_id)
-        form = UserForm(instance=user)
-        return render(request, 'users/update.html', {'form': form})
-
-    def post(self, request, *args, **kwargs):
-        user_id = kwargs.get('pk')
-        user = User.objects.get(id=user_id)
-        form = UserForm(request.POST, instance=user)
-        if form.is_valid():
-            form.save()
-            return redirect('users_index')
-        return render(request, 'users/update.html', {'form': form})
+class UserUpdateView(AuthRequiredMixin, UserIsOwnerMixin, SuccessMessageMixin, UpdateView):
+    model = User
+    form_class = UserForm
+    template_name = 'users/update.html'
+    success_url = reverse_lazy('users_index')
+    success_message = 'Пользователь успешно изменен'
+    login_url = reverse_lazy('login')
 
 
-class UserDeleteView(View):
-    def get(self, request, *args, **kwargs):
-        user_id = kwargs.get('pk')
-        user = User.objects.get(id=user_id)
-        return render(request, 'users/delete.html', {'user': user})
-
-    def post(self, request, *args, **kwargs):
-        user_id = kwargs.get('pk')
-        user = User.objects.get(id=user_id)
-        if user:
-            user.delete()
-        return redirect('users_index')
+class UserDeleteView(AuthRequiredMixin, UserIsOwnerMixin, SuccessMessageMixin, DeleteView):
+    model = User
+    template_name = 'users/delete.html'
+    success_url = reverse_lazy('users_index')
+    success_message = 'Пользователь успешно удален'
+    login_url = reverse_lazy('login')
