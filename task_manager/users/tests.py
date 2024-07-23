@@ -2,18 +2,15 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from .models import User
 from .forms import UserCreateForm
+from .utils import load_data
 
 
 class UserTemplateTests(TestCase):
 
     def setUp(self):
         self.client = Client()
-        self.user = User.objects.create_user(
-            first_name='Test',
-            last_name='User',
-            username='testuser',
-            password='testpassword'
-        )
+        self.data = load_data('user.json')
+        self.user = User.objects.create_user(**self.data['setup'])
 
     def test_user_list_template(self):
         response = self.client.get(reverse('users_index'))
@@ -27,13 +24,7 @@ class UserTemplateTests(TestCase):
         self.assertTemplateUsed(response, 'users/create.html')
         self.assertIsInstance(response.context['form'], UserCreateForm)
 
-        response = self.client.post(reverse('users_create'), {
-            'username': 'newuser',
-            'password1': 'newpassword',
-            'password2': 'newpassword',
-            'first_name': 'New',
-            'last_name': 'User'
-        })
+        response = self.client.post(reverse('users_create'), self.data['create'])
         self.assertEqual(response.status_code, 302)
         self.assertEqual(User.objects.count(), 2)
 
@@ -44,13 +35,7 @@ class UserTemplateTests(TestCase):
         self.assertTemplateUsed(response, 'users/update.html')
         self.assertIsInstance(response.context['form'], UserCreateForm)
 
-        response = self.client.post(reverse('users_update', args=[self.user.pk]), {
-            'username': 'updateduser',
-            'password1': 'updatedpassword',
-            'password2': 'updatedpassword',
-            'first_name': 'Updated',
-            'last_name': 'User'
-        })
+        response = self.client.post(reverse('users_update', args=[self.user.pk]), self.data['update'])
         self.assertEqual(response.status_code, 302)
         self.user.refresh_from_db()
         self.assertEqual(self.user.username, 'updateduser')

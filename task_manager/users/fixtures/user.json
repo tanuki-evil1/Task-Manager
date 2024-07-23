@@ -1,0 +1,22 @@
+{
+  "setup": {
+    "username": "testuser",
+    "first_name": "Test",
+    "last_name": "User",
+    "password": "testpassword"
+  },
+  "create": {
+    "username": "newuser",
+    "password1": "newpassword",
+    "password2": "newpassword",
+    "first_name": "New",
+    "last_name": "User"
+  },
+  "update": {
+    "username": "updateduser",
+    "password1": "updatedpassword",
+    "password2": "updatedpassword",
+    "first_name": "Updated",
+    "last_name": "User"
+  }
+}
