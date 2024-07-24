@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .forms import UserCreateForm
 from .models import User
-from .mixins import UserIsOwnerMixin, AuthRequiredMixin
+from task_manager.mixins import UserIsOwnerMixin, AuthRequiredMixin
 
 
 class IndexView(ListView):

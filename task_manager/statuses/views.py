@@ -1,31 +1,38 @@
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from task_manager.mixins import AuthRequiredMixin
+from .forms import StatusCreateForm
+from .models import Status
 
 
-# class IndexView(ListView):
-#     template_name = 'users/index.html'
-#     context_object_name = 'users'
-#     ordering = 'id'
-#
-#
-# class UserCreateView(SuccessMessageMixin, CreateView):
-#     template_name = 'users/create.html'
-#     success_url = reverse_lazy('login')
-#     success_message = 'Статус успешно зарегистрирован'
-#     extra_context = {'title': 'Регистрация', 'button_text': 'Зарегистрировать'}
-#
-#
-# class UserUpdateView(SuccessMessageMixin, UpdateView):
-#     template_name = 'users/update.html'
-#     success_url = reverse_lazy('users_index')
-#     success_message = 'Статус успешно изменен'
-#     login_url = reverse_lazy('login')
-#     extra_context = {'title': 'Изменение пользователя', 'button_text': 'Изменить'}
-#
-#
-# class UserDeleteView(SuccessMessageMixin, DeleteView):
-#     template_name = 'users/delete.html'
-#     success_url = reverse_lazy('users_index')
-#     success_message = 'Статус успешно удален'
-#     login_url = reverse_lazy('login')
+class IndexView(AuthRequiredMixin, ListView):
+    model = Status
+    template_name = 'statuses/index.html'
+    context_object_name = 'statuses'
+    ordering = 'id'
+
+
+class StatusCreateView(SuccessMessageMixin, AuthRequiredMixin, CreateView):
+    form_class = StatusCreateForm
+    template_name = 'statuses/create.html'
+    success_url = reverse_lazy('statuses_index')
+    success_message = 'Статус успешно создан'
+    extra_context = {'title': 'Создать статус', 'button_text': 'Создать'}
+
+
+class StatusUpdateView(SuccessMessageMixin, AuthRequiredMixin, UpdateView):
+    form_class = StatusCreateForm
+    model = Status
+    template_name = 'statuses/update.html'
+    success_url = reverse_lazy('statuses_index')
+    success_message = 'Статус успешно изменен'
+    extra_context = {'title': 'Изменение статуса', 'button_text': 'Изменить'}
+
+
+class StatusDeleteView(SuccessMessageMixin, AuthRequiredMixin, DeleteView):
+    model = Status
+    template_name = 'statuses/delete.html'
+    success_url = reverse_lazy('statuses_index')
+    success_message = 'Статус успешно удален'
+    extra_context = {'title': 'Удаление статуса', 'button_text': 'Да, удалить'}

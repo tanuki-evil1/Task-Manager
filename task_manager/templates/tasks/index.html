@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1 class="my-4">Задачи</h1>
+    <a class="btn btn-primary mb-3" href="/tasks/create/" role="button">Создать задачу</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Статус</th>
+            <th>Автор</th>
+            <th>Исполнитель</th>
+            <th>Дата создания</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+            <td>{{ task.id }}</td>
+            <td>
+                <a href="/tasks/{{ task.id }}/">{{ task.name }}</a>
+            </td>
+            <td>{{ task.s }}</td>
+            <td>aaa sss</td>
+            <td>Артем Павелко</td>
+            <td>20.06.2024 16:03</td>
+            <td>
+                <a href="/tasks/1/update/">Изменить</a>
+                <br>
+                <a href="/tasks/1/delete/">Удалить</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}
