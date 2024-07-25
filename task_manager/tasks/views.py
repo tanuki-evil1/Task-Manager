@@ -1,41 +1,48 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+
+from task_manager.users.models import User
+from task_manager.mixins import AuthRequiredMixin, UserIsOwnerMixin, AuthorDeleteMixin
 
 from .forms import TaskCreateForm
 from .models import Task
 
 
-class IndexView(LoginRequiredMixin, ListView):
+class IndexView(AuthRequiredMixin, ListView):
     model = Task
-    template_name = 'statuses/index.html'
-    context_object_name = 'statuses'
+    template_name = 'tasks/index.html'
+    context_object_name = 'tasks'
     ordering = 'id'
 
 
-class TaskCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
+class TaskCreateView(SuccessMessageMixin, AuthRequiredMixin, CreateView):
+    model = Task
     form_class = TaskCreateForm
-    template_name = 'statuses/create.html'
-    success_url = reverse_lazy('statuses_index')
-    success_message = 'Статус успешно создан'
-    extra_context = {'title': 'Создать статус', 'button_text': 'Создать'}
+    template_name = 'tasks/create.html'
+    success_url = reverse_lazy('tasks_index')
+    success_message = 'Задача успешно создана'
+    extra_context = {'title': 'Создать задачу', 'button_text': 'Создать'}
+
+    def form_valid(self, form):
+        user = self.request.user
+        form.instance.author = User.objects.get(pk=user.pk)
+        return super().form_valid(form)
 
 
-class TaskUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+class TaskUpdateView(SuccessMessageMixin, AuthRequiredMixin, UpdateView):
     form_class = TaskCreateForm
     model = Task
-    template_name = 'statuses/update.html'
-    success_url = reverse_lazy('statuses_index')
-    success_message = 'Статус успешно изменен'
+    template_name = 'tasks/update.html'
+    success_url = reverse_lazy('tasks_index')
+    success_message = 'Задача успешно изменена'
     login_url = reverse_lazy('login')
-    extra_context = {'title': 'Изменение статуса', 'button_text': 'Изменить'}
+    extra_context = {'title': 'Изменение задачи', 'button_text': 'Изменить'}
 
 
-class TaskDeleteView(SuccessMessageMixin, LoginRequiredMixin, DeleteView):
+class TaskDeleteView(AuthRequiredMixin, AuthorDeleteMixin, SuccessMessageMixin,  DeleteView):
     model = Task
     template_name = 'tasks/delete.html'
-    success_url = reverse_lazy('statuses_index')
-    success_message = 'Статус успешно удален'
-    login_url = reverse_lazy('login')
-    extra_context = {'title': 'Удаление статуса', 'button_text': 'Да, удалить'}
+    success_url = reverse_lazy('tasks_index')
+    success_message = 'Задача успешно удалена'
+    extra_context = {'title': 'Удаление задачи', 'button_text': 'Да, удалить'}

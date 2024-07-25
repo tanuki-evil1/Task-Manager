@@ -15,22 +15,23 @@
         </tr>
         </thead>
         <tbody>
-
-        <tr>
-            <td>{{ task.id }}</td>
-            <td>
-                <a href="/tasks/{{ task.id }}/">{{ task.name }}</a>
-            </td>
-            <td>{{ task.s }}</td>
-            <td>aaa sss</td>
-            <td>Артем Павелко</td>
-            <td>20.06.2024 16:03</td>
-            <td>
-                <a href="/tasks/1/update/">Изменить</a>
-                <br>
-                <a href="/tasks/1/delete/">Удалить</a>
-            </td>
-        </tr>
+        {% for task in tasks %}
+            <tr>
+                <td>{{ task.id }}</td>
+                <td>
+                    <a href="/tasks/{{ task.id }}/">{{ task.name }}</a>
+                </td>
+                <td>{{ task.status.name }}</td>
+                <td>{{ task.author }}</td>
+                <td>{{ task.executor }}</td>
+                <td>{{ task.created_at }}</td>
+                <td>
+                    <a href="/tasks/{{ task.id }}/update/">Изменить</a>
+                    <br>
+                    <a href="/tasks/{{ task.id }}/delete/">Удалить</a>
+                </td>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
 {% endblock %}

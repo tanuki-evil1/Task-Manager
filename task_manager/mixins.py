@@ -26,3 +26,11 @@ class UserIsOwnerMixin:
             return redirect(reverse_lazy('users_index'))
 
         return super().dispatch(request, *args, **kwargs)
+
+
+class AuthorDeleteMixin:
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.id != self.get_object().author.id:
+            messages.error(self.request, "Задачу может удалить только ее автор")
+            return redirect('tasks_index')
+        return super().dispatch(request, *args, **kwargs)
