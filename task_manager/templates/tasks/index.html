@@ -1,7 +1,16 @@
 {% extends 'base.html' %}
+{% load django_bootstrap5 %}
 {% block content %}
     <h1 class="my-4">Задачи</h1>
     <a class="btn btn-primary mb-3" href="/tasks/create/" role="button">Создать задачу</a>
+    <div class="card mb-3">
+        <div class="card-body bg-light">
+            <form class="form-inline center" method="get">
+                {% bootstrap_form filter.form field_class="ml-2 mr-3" %}
+                {% bootstrap_button button_text button_type="submit" button_class="btn btn-primary" %}
+            </form>
+        </div>
+    </div>
     <table class="table table-striped">
         <thead>
         <tr>

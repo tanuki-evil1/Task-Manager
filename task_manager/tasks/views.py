@@ -1,19 +1,23 @@
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import CreateView, UpdateView, DeleteView
+from django_filters.views import FilterView
 
 from task_manager.users.models import User
-from task_manager.mixins import AuthRequiredMixin, UserIsOwnerMixin, AuthorDeleteMixin
+from task_manager.mixins import AuthRequiredMixin, AuthorDeleteMixin
 
+from .filters import TaskFilter
 from .forms import TaskCreateForm
 from .models import Task
 
 
-class IndexView(AuthRequiredMixin, ListView):
+class IndexView(AuthRequiredMixin, FilterView):
     model = Task
+    filterset_class = TaskFilter
     template_name = 'tasks/index.html'
     context_object_name = 'tasks'
     ordering = 'id'
+    extra_context = {'title': 'Создать задачу', 'button_text': 'Показать'}
 
 
 class TaskCreateView(SuccessMessageMixin, AuthRequiredMixin, CreateView):
@@ -40,7 +44,7 @@ class TaskUpdateView(SuccessMessageMixin, AuthRequiredMixin, UpdateView):
     extra_context = {'title': 'Изменение задачи', 'button_text': 'Изменить'}
 
 
-class TaskDeleteView(AuthRequiredMixin, AuthorDeleteMixin, SuccessMessageMixin,  DeleteView):
+class TaskDeleteView(AuthRequiredMixin, AuthorDeleteMixin, SuccessMessageMixin, DeleteView):
     model = Task
     template_name = 'tasks/delete.html'
     success_url = reverse_lazy('tasks_index')
