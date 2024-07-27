@@ -7,8 +7,6 @@ from django.urls import reverse_lazy
 from django.views import View
 
 
-
-
 class IndexView(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'index.html')
@@ -19,7 +17,6 @@ class UserLoginView(SuccessMessageMixin, LoginView):
     template_name = 'login.html'
     success_message = 'Вы залогинены'
     next_page = reverse_lazy('index')
-
 
 
 class UserLogoutView(View):
