@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
+
 {% load i18n %}
-{% load django_bootstrap5 %}
+
 {% block content %}
-    <h1 class="my-4">Пользователи</h1>
+    <h1 class="my-4">{{ title }}</h1>
     <table class="table table-striped">
         <thead>
         <tr>
             <th>ID</th>
-            <th>Имя пользователя</th>
-            <th>Полное имя</th>
-            <th>Дата создания</th>
+            <th>{% trans 'Имя пользователя' %}</th>
+            <th>{% trans 'Полное имя' %}</th>
+            <th>{% trans 'Дата создания' %}</th>
             <th></th>
         </tr>
         </thead>
@@ -21,9 +22,9 @@
                 <td>{{ user.first_name }} {{ user.last_name }}</td>
                 <td>{{ user.date_joined }}</td>
                 <td>
-                    <a href="/users/{{ user.id }}/update/">Изменить</a>
+                    <a href="{% url 'users_update' user.id %}">{% trans 'Изменить' %}</a>
                     <br>
-                    <a href="/users/{{ user.id }}/delete/">Удалить</a>
+                    <a href="{% url 'users_delete' user.id %}">{% trans 'Удалить' %}</a>
                 </td>
             </tr>
         {% endfor %}

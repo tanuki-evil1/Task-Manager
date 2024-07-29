@@ -1,23 +1,27 @@
 {% load django_bootstrap5 %}
 {% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
 <!DOCTYPE html>
-<html lang="ru-ru">
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{% translate 'Менеджер задач' %}</title>
+    <title>{% trans 'Менеджер задач' %}</title>
     {% bootstrap_css %}
-    {% bootstrap_javascript %}
 </head>
 <body class="d-flex flex-column min-vh-100">
 {% include 'navbar.html' %}
+
 <div class="container wrapper flex-grow-1">
     {% bootstrap_messages %}
     {% block content %}{% endblock %}
 </div>
+
 <footer>
     <div class="container my-5 pt-4 border-top">
         <a target="_blank" href="https://github.com/tanuki-evil1">Tanuki</a>
     </div>
 </footer>
+{% bootstrap_javascript %}
 </body>
 </html>

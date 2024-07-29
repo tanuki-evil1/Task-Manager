@@ -1,13 +1,16 @@
 {% extends 'base.html' %}
+
+{% load i18n %}
+
 {% block content %}
-    <h1 class="my-4"> Метки </h1>
-    <a class="btn btn-primary mb-3" href="/labels/create/">Создать Метку</a>
+    <h1 class="my-4"> {{ title }} </h1>
+    <a class="btn btn-primary mb-3" href="{% url 'labels_create' %}">{% trans 'Создать Метку' %}</a>
     <table class="table table-striped">
         <thead>
         <tr>
             <th>ID</th>
-            <th>Имя</th>
-            <th>Дата создания</th>
+            <th>{% trans 'Имя' %}</th>
+            <th>{% trans 'Дата создания' %}</th>
             <th></th>
         </tr>
         </thead>
@@ -18,9 +21,9 @@
                 <td>{{ label.name }}</td>
                 <td>{{ label.created_at }}</td>
                 <td>
-                    <a href="/labels/{{ label.id }}/update/">Изменить</a>
+                    <a href="{% url 'labels_update' label.id %}">{% trans 'Изменить' %}</a>
                     <br>
-                    <a href="/labels/{{ label.id }}/delete/">Удалить</a>
+                    <a href="{% url 'labels_delete' label.id %}">{% trans 'Удалить' %}</a>
                 </td>
             </tr>
         {% endfor %}

@@ -4,37 +4,41 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .forms import UserCreateForm
 from .models import User
 from task_manager.mixins import UserIsOwnerMixin, AuthRequiredMixin
+from django.utils.translation import gettext_lazy as _
 
 
 class IndexView(ListView):
     model = User
     template_name = 'users/index.html'
     context_object_name = 'users'
-    ordering = 'id'
+    extra_context = {'title': _('Пользователи')}
 
 
 class UserCreateView(SuccessMessageMixin, CreateView):
     model = User
     form_class = UserCreateForm
-    template_name = 'users/create.html'
+    template_name = 'base_form.html'
     success_url = reverse_lazy('login')
-    success_message = 'Пользователь успешно зарегистрирован'
-    extra_context = {'title': 'Регистрация', 'button_text': 'Зарегистрировать'}
+    success_message = _('Пользователь успешно зарегистрирован')
+    extra_context = {'title': _('Регистрация'), 'button_text': _('Зарегистрировать')}
 
 
 class UserUpdateView(AuthRequiredMixin, UserIsOwnerMixin, SuccessMessageMixin, UpdateView):
     model = User
     form_class = UserCreateForm # Убрать сообщение о том, что такое пользователь есть и проверить демо
-    template_name = 'users/update.html'
+    template_name = 'base_form.html'
     success_url = reverse_lazy('users_index')
-    success_message = 'Пользователь успешно изменен'
-    login_url = reverse_lazy('login')
-    extra_context = {'title': 'Изменение пользователя', 'button_text': 'Изменить'}
+    success_message = _('Пользователь успешно изменен')
+    permission_message = _('У вас нет прав для изменения другого пользователя.')
+    permission_url = reverse_lazy('users_index')
+    extra_context = {'title': _('Изменение пользователя'), 'button_text': _('Изменить')}
 
 
 class UserDeleteView(AuthRequiredMixin, UserIsOwnerMixin, SuccessMessageMixin, DeleteView):
     model = User
     template_name = 'users/delete.html'
     success_url = reverse_lazy('users_index')
-    success_message = 'Пользователь успешно удален'
-    login_url = reverse_lazy('login')
+    success_message = _('Пользователь успешно удален')
+    permission_message = _('У вас нет прав для изменения другого пользователя.')
+    permission_url = reverse_lazy('users_index')
+    extra_context = {'title': _('Удаление пользователя'), 'button_text': _('Да, удалить')}
