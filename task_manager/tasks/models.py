@@ -7,13 +7,28 @@ from task_manager.users.models import User
 
 
 class Task(models.Model):
-    name = models.CharField(max_length=150, unique=True, blank=False, verbose_name=_('Имя'))
-    description = models.TextField(blank=True, verbose_name=_('Описание'))
-    status = models.ForeignKey(Status, on_delete=models.PROTECT, verbose_name=_('Статус'))
-    author = models.ForeignKey(User, on_delete=models.PROTECT, related_name='author', verbose_name=_('Автор'))
-    executor = models.ForeignKey(User, on_delete=models.PROTECT, related_name='executor', verbose_name=_('Исполнитель'))
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Дата создания'))
-    labels = models.ManyToManyField(Label, blank=True, through='TaskLabelRelation', through_fields=('task', 'label'),
+    name = models.CharField(max_length=150,
+                            unique=True,
+                            blank=False,
+                            verbose_name=_('Имя'))
+    description = models.TextField(blank=True,
+                                   verbose_name=_('Описание'))
+    status = models.ForeignKey(Status,
+                               on_delete=models.PROTECT,
+                               verbose_name=_('Статус'))
+    author = models.ForeignKey(User,
+                               on_delete=models.PROTECT,
+                               related_name='author',
+                               verbose_name=_('Автор'))
+    executor = models.ForeignKey(User,
+                                 on_delete=models.PROTECT,
+                                 related_name='executor',
+                                 verbose_name=_('Исполнитель'))
+    created_at = models.DateTimeField(auto_now_add=True,
+                                      verbose_name=_('Дата создания'))
+    labels = models.ManyToManyField(Label, blank=True,
+                                    through='TaskLabelRelation',
+                                    through_fields=('task', 'label'),
                                     verbose_name=_('Метки'))
 
     def __str__(self):
