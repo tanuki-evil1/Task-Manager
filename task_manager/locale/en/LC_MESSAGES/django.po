@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-29 11:21+0300\n"
+"POT-Creation-Date: 2024-07-31 15:58+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,6 +44,23 @@ msgstr "Label"
 #: task_manager/templates/tasks/detail.html:34
 msgid "Метки"
 msgstr "Labels"
+
+#: task_manager/labels/tests/test_post.py:33
+#: task_manager/statuses/tests/test_post.py:33
+#: task_manager/tasks/tests/test_post.py:41
+#: task_manager/users/tests/test_post.py:27
+#: task_manager/users/tests/test_post.py:116
+msgid "This field is required."
+msgstr ""
+
+#: task_manager/labels/tests/test_post.py:54
+msgid "Label with this Name already exists."
+msgstr ""
+
+#: task_manager/labels/tests/test_post.py:73
+#: task_manager/statuses/tests/test_post.py:73
+msgid "Ensure this value has at most 100 characters "
+msgstr ""
 
 #: task_manager/labels/views.py:23
 msgid "Метка успешно создана"
@@ -88,7 +105,7 @@ msgid "Удаление метки"
 msgstr "Delete label"
 
 #: task_manager/labels/views.py:43 task_manager/statuses/views.py:43
-#: task_manager/tasks/views.py:59 task_manager/users/views.py:44
+#: task_manager/tasks/views.py:59 task_manager/users/views.py:46
 msgid "Да, удалить"
 msgstr "Yes, delete"
 
@@ -115,6 +132,10 @@ msgstr "Status"
 #: task_manager/templates/navbar.html:16
 msgid "Статусы"
 msgstr "Statuses"
+
+#: task_manager/statuses/tests/test_post.py:54
+msgid "Status with this Name already exists."
+msgstr ""
 
 #: task_manager/statuses/views.py:23
 msgid "Статус успешно создан"
@@ -171,6 +192,17 @@ msgstr "Task"
 #: task_manager/templates/navbar.html:22
 msgid "Задачи"
 msgstr "Tasks"
+
+#: task_manager/tasks/tests/test_post.py:74
+msgid "Task with this Name already exists."
+msgstr ""
+
+#: task_manager/tasks/tests/test_post.py:93
+#: task_manager/users/tests/test_post.py:90
+#: task_manager/users/tests/test_post.py:97
+#: task_manager/users/tests/test_post.py:104
+msgid "Ensure this value has at most 150 characters "
+msgstr ""
 
 #: task_manager/tasks/views.py:19
 msgid "Показать"
@@ -267,6 +299,24 @@ msgstr "Full Name"
 msgid "Фамилия"
 msgstr "Last Name"
 
+#: task_manager/users/tests/test_post.py:57
+msgid ""
+"Enter a valid username. This value may contain only letters, numbers, and "
+"@/./+/-/_ characters."
+msgstr ""
+
+#: task_manager/users/tests/test_post.py:72
+msgid "A user with that username already exists."
+msgstr ""
+
+#: task_manager/users/tests/test_post.py:140
+msgid "The two password fields didn’t match."
+msgstr ""
+
+#: task_manager/users/tests/test_post.py:154
+msgid "This password is too short. It must contain at least 3 characters."
+msgstr ""
+
 #: task_manager/users/views.py:22
 msgid "Пользователь успешно зарегистрирован"
 msgstr "User successfully registered"
@@ -288,6 +338,10 @@ msgid "Пользователь успешно удален"
 msgstr "User successfully deleted"
 
 #: task_manager/users/views.py:44
+msgid "Невозможно удалить пользователя, потому что он используется"
+msgstr "Cannot delete status because it is in use"
+
+#: task_manager/users/views.py:46
 msgid "Удаление пользователя"
 msgstr "User deletion"
 

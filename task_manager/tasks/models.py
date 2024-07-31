@@ -7,8 +7,8 @@ from task_manager.users.models import User
 
 
 class Task(models.Model):
-    name = models.CharField(max_length=150, verbose_name=_('Имя'))
-    description = models.TextField(verbose_name=_('Описание'))
+    name = models.CharField(max_length=150, unique=True, blank=False, verbose_name=_('Имя'))
+    description = models.TextField(blank=True, verbose_name=_('Описание'))
     status = models.ForeignKey(Status, on_delete=models.PROTECT, verbose_name=_('Статус'))
     author = models.ForeignKey(User, on_delete=models.PROTECT, related_name='author', verbose_name=_('Автор'))
     executor = models.ForeignKey(User, on_delete=models.PROTECT, related_name='executor', verbose_name=_('Исполнитель'))

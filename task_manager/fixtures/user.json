@@ -1,22 +1,32 @@
-{
-  "setup": {
-    "username": "testuser",
-    "first_name": "Test",
-    "last_name": "User",
-    "password": "testpassword"
+[
+  {
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+      "username": "Lennie",
+      "first_name": "John",
+      "last_name": "Lennon",
+      "password": "John1940"
+    }
   },
-  "create": {
-    "username": "newuser",
-    "password1": "newpassword",
-    "password2": "newpassword",
-    "first_name": "New",
-    "last_name": "User"
+  {
+    "model": "users.user",
+    "pk": 2,
+    "fields": {
+      "username": "Macca",
+      "first_name": "Paul",
+      "last_name": "McCartney",
+      "password": "Sir!"
+    }
   },
-  "update": {
-    "username": "updateduser",
-    "password1": "updatedpassword",
-    "password2": "updatedpassword",
-    "first_name": "Updated",
-    "last_name": "User"
+  {
+    "model": "users.user",
+    "pk": 3,
+    "fields": {
+      "username": "Hazza",
+      "first_name": "George",
+      "last_name": "Harrison",
+      "password": "12345"
+    }
   }
-}
+]
