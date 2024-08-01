@@ -22,6 +22,9 @@ make-mig:
 migrate:
 	poetry run python manage.py migrate
 
+test:
+	poetry run python manage.py test
+
 test-coverage:
 	poetry run coverage run manage.py test
 	poetry run coverage report -m --include=task_manager/* --omit=task_manager/settings.py
