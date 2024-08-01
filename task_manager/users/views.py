@@ -34,7 +34,8 @@ class UserUpdateView(AuthRequiredMixin, UserIsOwnerMixin, SuccessMessageMixin, U
     extra_context = {'title': _('Изменение пользователя'), 'button_text': _('Изменить')}
 
 
-class UserDeleteView(AuthRequiredMixin, UserIsOwnerMixin, DeleteProtectionMixin, SuccessMessageMixin, DeleteView):
+class UserDeleteView(AuthRequiredMixin, UserIsOwnerMixin,
+                     DeleteProtectionMixin, SuccessMessageMixin, DeleteView):
     model = User
     template_name = 'users/delete.html'
     success_url = reverse_lazy('users_index')
