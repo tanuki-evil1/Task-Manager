@@ -1,11 +1,13 @@
+from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from django_filters.views import FilterView
 from django.utils.translation import gettext_lazy as _
 
 from task_manager.users.models import User
-from task_manager.mixins import AuthRequiredMixin, AuthorDeleteMixin
+from task_manager.mixins import AuthRequiredMixin
 from .filters import TaskFilter
 from .forms import TaskCreateForm
 from .models import Task
@@ -49,7 +51,7 @@ class TaskUpdateView(SuccessMessageMixin, AuthRequiredMixin, UpdateView):
     extra_context = {'title': _('Изменение задачи'), 'button_text': _('Изменить')}
 
 
-class TaskDeleteView(AuthRequiredMixin, AuthorDeleteMixin, SuccessMessageMixin, DeleteView):
+class TaskDeleteView(AuthRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Task
     template_name = 'tasks/delete.html'
     success_url = reverse_lazy('tasks_index')
@@ -57,3 +59,9 @@ class TaskDeleteView(AuthRequiredMixin, AuthorDeleteMixin, SuccessMessageMixin, 
     author_message = 'Задачу может удалить только ее автор'
     author_url = reverse_lazy('tasks_index')
     extra_context = {'title': _('Удаление задачи'), 'button_text': _('Да, удалить')}
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.id != self.get_object().author.id:
+            messages.error(self.request, self.author_message)
+            return redirect(self.author_url)
+        return super().dispatch(request, *args, **kwargs)
