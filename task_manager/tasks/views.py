@@ -18,7 +18,7 @@ class IndexView(AuthRequiredMixin, FilterView):
     filterset_class = TaskFilter
     template_name = 'tasks/index.html'
     context_object_name = 'tasks'
-    extra_context = {'title': _('Задачи'), 'button_text': _('Показать')}
+    extra_context = {'title': _('Tasks'), 'button_text': _('Show')}
 
 
 class TaskCreateView(SuccessMessageMixin, AuthRequiredMixin, CreateView):
@@ -26,8 +26,8 @@ class TaskCreateView(SuccessMessageMixin, AuthRequiredMixin, CreateView):
     form_class = TaskCreateForm
     template_name = 'base_form.html'
     success_url = reverse_lazy('tasks_index')
-    success_message = _('Задача успешно создана')
-    extra_context = {'title': _('Создать задачу'), 'button_text': _('Создать')}
+    success_message = _('Task successfully created')
+    extra_context = {'title': _('Create task'), 'button_text': _('Create')}
 
     def form_valid(self, form):
         user = self.request.user
@@ -39,7 +39,7 @@ class TaskDetailView(AuthRequiredMixin, DetailView):
     model = Task
     context_object_name = 'task'
     template_name = 'tasks/detail.html'
-    extra_context = {'title': _('Просмотр задачи')}
+    extra_context = {'title': _('Task preview')}
 
 
 class TaskUpdateView(SuccessMessageMixin, AuthRequiredMixin, UpdateView):
@@ -47,18 +47,18 @@ class TaskUpdateView(SuccessMessageMixin, AuthRequiredMixin, UpdateView):
     model = Task
     template_name = 'base_form.html'
     success_url = reverse_lazy('tasks_index')
-    success_message = _('Задача успешно изменена')
-    extra_context = {'title': _('Изменение задачи'), 'button_text': _('Изменить')}
+    success_message = _('Task successfully changed')
+    extra_context = {'title': _('Task change'), 'button_text': _('Change')}
 
 
 class TaskDeleteView(AuthRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Task
     template_name = 'tasks/delete.html'
     success_url = reverse_lazy('tasks_index')
-    success_message = _('Задача успешно удалена')
-    author_message = 'Задачу может удалить только ее автор'
+    success_message = _('Task successfully deleted')
+    author_message = 'The task can be deleted only by its author'
     author_url = reverse_lazy('tasks_index')
-    extra_context = {'title': _('Удаление задачи'), 'button_text': _('Да, удалить')}
+    extra_context = {'title': _('Delete task'), 'button_text': _('Yes, delete')}
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.id != self.get_object().author.id:

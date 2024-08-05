@@ -10,11 +10,11 @@ class TaskFilter(FilterSet):
 
     labels = ModelChoiceFilter(
         queryset=Label.objects.all(),
-        label=_('Метка')
+        label=_('Label')
     )
 
     own_tasks = BooleanFilter(
-        label=_('Только свои задачи'),
+        label=_('Only own tasks'),
         widget=forms.CheckboxInput,
         method='get_own_tasks',
     )

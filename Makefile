@@ -8,7 +8,7 @@ build:
 	./build.sh
 
 make-msg:
-	poetry run python manage.py makemessages -l en
+	poetry run python manage.py makemessages -l ru
 
 locale:
 	poetry run python manage.py compilemessages --ignore=.venv

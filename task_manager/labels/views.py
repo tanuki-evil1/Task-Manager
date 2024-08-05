@@ -12,7 +12,7 @@ class IndexView(AuthRequiredMixin, ListView):
     model = Label
     template_name = 'labels/index.html'
     context_object_name = 'labels'
-    extra_context = {'title': _('Метки')}
+    extra_context = {'title': _('Labels')}
 
 
 class LabelCreateView(SuccessMessageMixin, AuthRequiredMixin, CreateView):
@@ -20,8 +20,8 @@ class LabelCreateView(SuccessMessageMixin, AuthRequiredMixin, CreateView):
     form_class = LabelCreateForm
     template_name = 'base_form.html'
     success_url = reverse_lazy('labels_index')
-    success_message = _('Метка успешно создана')
-    extra_context = {'title': _('Создать метку'), 'button_text': _('Создать')}
+    success_message = _('Label successfully created')
+    extra_context = {'title': _('Create label'), 'button_text': _('Create')}
 
 
 class LabelUpdateView(SuccessMessageMixin, AuthRequiredMixin, UpdateView):
@@ -29,15 +29,16 @@ class LabelUpdateView(SuccessMessageMixin, AuthRequiredMixin, UpdateView):
     form_class = LabelCreateForm
     template_name = 'base_form.html'
     success_url = reverse_lazy('labels_index')
-    success_message = _('Метка успешно изменена')
-    extra_context = {'title': _('Изменение метки'), 'button_text': _('Изменить')}
+    success_message = _('Label successfully changed')
+    extra_context = {'title': _('Change label'), 'button_text': _('Change')}
 
 
 class LabelDeleteView(SuccessMessageMixin, DeleteProtectionMixin, AuthRequiredMixin, DeleteView):
     model = Label
     template_name = 'labels/delete.html'
     success_url = reverse_lazy('labels_index')
-    success_message = _('Метка успешно удалена')
-    protected_message = _('Невозможно удалить метку, потому что она используется')
+    success_message = _('Label successfully deleted')
+    protected_message = _('It is not possible to delete a label '
+                          'because it is in use')
     protected_url = reverse_lazy('labels_index')
-    extra_context = {'title': _('Удаление метки'), 'button_text': _('Да, удалить')}
+    extra_context = {'title': _('Delete label'), 'button_text': _('Yes, delete')}

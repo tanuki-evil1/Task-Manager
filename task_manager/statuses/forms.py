@@ -5,7 +5,7 @@ from .models import Status
 
 
 class StatusCreateForm(forms.ModelForm):
-    name = forms.CharField(max_length=100, required=True, label=_("Имя"))
+    name = forms.CharField(max_length=100, required=True, label=_("Name"))
 
     class Meta:
         model = Status

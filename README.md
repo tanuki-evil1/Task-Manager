@@ -24,28 +24,38 @@ prepared HTML. And this HTML is rendered by the server.
 
 [PostgreSQL](https://www.postgresql.org/) is used as the object-relational database system.
 
-#### --> [Demo](https://task-manager-xggd.onrender.com) <--
+## Demo
+#### --> [Task Manager](https://task-manager-xggd.onrender.com) <--
 
-### Stack
+## Stack
+Python
+Django
+Bootstrap 5
+PostgreSQL
+Poetry
+Gunicorn
+Whitenoise
+Rollbar
+Flake8
 
-* Python
-* Django
-* Bootstrap 5
-* PostgreSQL
-* Poetry
-* Gunicorn
-* Whitenoise
-* Rollbar
-* Flake8
+## Getting Started
 
-## Usage and Installation
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+### Prerequisites
+
+Ensure you have Python, Poetry, and PostgreSQL installed.
+
+### Usage and Installation
+Use the Makefile to simplify the installation and startup process:
 
 ```bash
 git clone https://github.com/tanuki-evil1/Task-Manager.git
 cd Task-Manager
 
 ## Configuration
-Before running the application, you need to set up your environment variables. Duplicate the `.env.example` file and
+Before running the application, you need to set up your environment variables. 
+Duplicate the `.env.example` file and
 rename it to `.env`. Then, modify it with your actual data for the following variables:
 
 - `SECRET_KEY`: a secret key for your application.
@@ -60,4 +70,11 @@ make migrate
 
 # Run the local development server (make start - production server)
 make dev
+```
+### Testing
+
+To run tests, use the following command:
+
+```bash
+make lint  # Code linting
 ```

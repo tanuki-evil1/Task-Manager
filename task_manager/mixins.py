@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 class AuthRequiredMixin(LoginRequiredMixin):
-    auth_message = _('Вы не авторизованы! Пожалуйста, выполните вход.')
+    auth_message = _('You are not logged in! Please log in.')
 
     def handle_no_permission(self):
         # Добавляем собственное сообщение об ошибке

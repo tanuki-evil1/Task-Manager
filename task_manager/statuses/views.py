@@ -12,7 +12,7 @@ class IndexView(AuthRequiredMixin, ListView):
     model = Status
     template_name = 'statuses/index.html'
     context_object_name = 'statuses'
-    extra_context = {'title': _('Статусы')}
+    extra_context = {'title': _('Statuses')}
 
 
 class StatusCreateView(SuccessMessageMixin, AuthRequiredMixin, CreateView):
@@ -20,8 +20,8 @@ class StatusCreateView(SuccessMessageMixin, AuthRequiredMixin, CreateView):
     form_class = StatusCreateForm
     template_name = 'base_form.html'
     success_url = reverse_lazy('statuses_index')
-    success_message = _('Статус успешно создан')
-    extra_context = {'title': _('Создать статус'), 'button_text': _('Создать')}
+    success_message = _('Status successfully created')
+    extra_context = {'title': _('Create status'), 'button_text': _('Create')}
 
 
 class StatusUpdateView(SuccessMessageMixin, AuthRequiredMixin, UpdateView):
@@ -29,15 +29,16 @@ class StatusUpdateView(SuccessMessageMixin, AuthRequiredMixin, UpdateView):
     model = Status
     template_name = 'base_form.html'
     success_url = reverse_lazy('statuses_index')
-    success_message = _('Статус успешно изменен')
-    extra_context = {'title': _('Изменение статуса'), 'button_text': _('Изменить')}
+    success_message = _('Status successfully changed')
+    extra_context = {'title': _('Change status'), 'button_text': _('Change')}
 
 
 class StatusDeleteView(SuccessMessageMixin, DeleteProtectionMixin, AuthRequiredMixin, DeleteView):
     model = Status
     template_name = 'statuses/delete.html'
     success_url = reverse_lazy('statuses_index')
-    success_message = _('Статус успешно удален')
-    protected_message = _('Невозможно удалить статус, потому что он используется')
+    success_message = _('Status successfully deleted')
+    protected_message = _('It is not possible to delete a status '
+                          'because it is in use')
     protected_url = reverse_lazy('statuses_index')
-    extra_context = {'title': _('Удаление статуса'), 'button_text': _('Да, удалить')}
+    extra_context = {'title': _('Delete status'), 'button_text': _('Yes, delete')}
