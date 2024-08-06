@@ -1,6 +1,4 @@
-from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
-from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .forms import UserCreateForm
@@ -25,8 +23,7 @@ class UserCreateView(SuccessMessageMixin, CreateView):
     extra_context = {'title': _('Create user'), 'button_text': _('Register')}
 
 
-class UserUpdateView(AuthRequiredMixin, UserPermissionMixin,
-                     SuccessMessageMixin, UpdateView):
+class UserUpdateView(AuthRequiredMixin, UserPermissionMixin, SuccessMessageMixin, UpdateView):
     model = User
     form_class = UserCreateForm  # Подумать
     template_name = 'base_form.html'
@@ -35,6 +32,7 @@ class UserUpdateView(AuthRequiredMixin, UserPermissionMixin,
     permission_message = _('You have no rights to change another user.')
     permission_url = reverse_lazy('users_index')
     extra_context = {'title': _('Update user'), 'button_text': _('Update')}
+
 
 
 class UserDeleteView(AuthRequiredMixin, DeleteProtectionMixin,
