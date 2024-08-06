@@ -34,7 +34,6 @@ class UserUpdateView(AuthRequiredMixin, UserPermissionMixin, SuccessMessageMixin
     extra_context = {'title': _('Update user'), 'button_text': _('Update')}
 
 
-
 class UserDeleteView(AuthRequiredMixin, DeleteProtectionMixin,
                      UserPermissionMixin, SuccessMessageMixin, DeleteView):
     model = User
