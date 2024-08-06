@@ -139,7 +139,7 @@ msgstr "Создать статус"
 
 #: task_manager/statuses/views.py:32
 msgid "Status successfully changed"
-msgstr "Статус успешно изменён"
+msgstr "Статус успешно изменен"
 
 #: task_manager/statuses/views.py:33
 msgid "Change status"
@@ -147,7 +147,7 @@ msgstr "Изменение статуса"
 
 #: task_manager/statuses/views.py:40
 msgid "Status successfully deleted"
-msgstr "Статус успешно удалён"
+msgstr "Статус успешно удален"
 
 #: task_manager/statuses/views.py:41
 msgid "It is not possible to delete a status because it is in use"
