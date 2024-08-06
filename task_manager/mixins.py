@@ -1,9 +1,11 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import ProtectedError
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
+
+from task_manager.users.models import User
 
 
 class AuthRequiredMixin(LoginRequiredMixin):
@@ -27,3 +29,21 @@ class DeleteProtectionMixin:
         except ProtectedError:
             messages.error(request, self.protected_message)
             return redirect(self.protected_url)
+
+
+class UserPermissionMixin:
+    """
+    Authorisation check.
+    Prohibits changing an item created by another user.
+    """
+    permission_message = None
+    permission_url = None
+
+    def dispatch(self, request, *args, **kwargs):
+        user = get_object_or_404(User, pk=kwargs['pk'])
+
+        if request.user != user and not user.is_anonymous:
+            messages.error(request, self.permission_message)
+            return redirect(self.permission_url)
+
+        return super().dispatch(request, *args, **kwargs)

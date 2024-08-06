@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .forms import UserCreateForm
 from .models import User
-from task_manager.mixins import AuthRequiredMixin, DeleteProtectionMixin
+from task_manager.mixins import AuthRequiredMixin, DeleteProtectionMixin, UserPermissionMixin
 from django.utils.translation import gettext_lazy as _
 
 
@@ -25,7 +25,8 @@ class UserCreateView(SuccessMessageMixin, CreateView):
     extra_context = {'title': _('Create user'), 'button_text': _('Register')}
 
 
-class UserUpdateView(AuthRequiredMixin, SuccessMessageMixin, UpdateView):
+class UserUpdateView(AuthRequiredMixin, UserPermissionMixin,
+                     SuccessMessageMixin, UpdateView):
     model = User
     form_class = UserCreateForm  # Подумать
     template_name = 'base_form.html'
@@ -35,20 +36,9 @@ class UserUpdateView(AuthRequiredMixin, SuccessMessageMixin, UpdateView):
     permission_url = reverse_lazy('users_index')
     extra_context = {'title': _('Update user'), 'button_text': _('Update')}
 
-    def dispatch(self, request, *args, **kwargs):
-        # Получаем профиль по первичному ключу из URL
-        user = get_object_or_404(User, pk=kwargs['pk'])
-
-        # Проверяем, является ли текущий пользователь владельцем профиля
-        if request.user != user:
-            messages.error(request, self.permission_message)
-            return redirect(self.permission_url)
-
-        return super().dispatch(request, *args, **kwargs)
-
 
 class UserDeleteView(AuthRequiredMixin, DeleteProtectionMixin,
-                     SuccessMessageMixin, DeleteView):
+                     UserPermissionMixin, SuccessMessageMixin, DeleteView):
     model = User
     template_name = 'users/delete.html'
     success_url = reverse_lazy('users_index')
@@ -58,12 +48,3 @@ class UserDeleteView(AuthRequiredMixin, DeleteProtectionMixin,
     protected_message = _('Unable to delete a user because he is being used')
     protected_url = reverse_lazy('users_index')
     extra_context = {'title': _('Delete user'), 'button_text': _('Yes, delete')}
-
-    def dispatch(self, request, *args, **kwargs):
-        user = get_object_or_404(User, pk=kwargs['pk'])
-
-        if request.user != user:
-            messages.error(request, self.permission_message)
-            return redirect(self.permission_url)
-
-        return super().dispatch(request, *args, **kwargs)

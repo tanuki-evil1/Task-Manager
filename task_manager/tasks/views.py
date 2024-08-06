@@ -56,12 +56,12 @@ class TaskDeleteView(AuthRequiredMixin, SuccessMessageMixin, DeleteView):
     template_name = 'tasks/delete.html'
     success_url = reverse_lazy('tasks_index')
     success_message = _('Task successfully deleted')
-    author_message = 'The task can be deleted only by its author'
+    author_message = _('The task can be deleted only by its author')
     author_url = reverse_lazy('tasks_index')
     extra_context = {'title': _('Delete task'), 'button_text': _('Yes, delete')}
 
     def dispatch(self, request, *args, **kwargs):
-        if request.user.id != self.get_object().author.id:
+        if request.user.id != self.get_object().author.id and not request.user.is_anonymous:
             messages.error(self.request, self.author_message)
             return redirect(self.author_url)
         return super().dispatch(request, *args, **kwargs)
