@@ -7,7 +7,7 @@ from django_filters.views import FilterView
 from django.utils.translation import gettext_lazy as _
 
 from task_manager.users.models import User
-from task_manager.mixins import AuthRequiredMixin, AuthorDeletionMixin
+from task_manager.mixins import AuthRequiredMixin
 from .filters import TaskFilter
 from .forms import TaskCreateForm
 from .models import Task
@@ -51,7 +51,7 @@ class TaskUpdateView(SuccessMessageMixin, AuthRequiredMixin, UpdateView):
     extra_context = {'title': _('Task change'), 'button_text': _('Change')}
 
 
-class TaskDeleteView(AuthRequiredMixin, AuthorDeletionMixin, SuccessMessageMixin, DeleteView):
+class TaskDeleteView(AuthRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Task
     template_name = 'tasks/delete.html'
     success_url = reverse_lazy('tasks_index')
@@ -60,8 +60,8 @@ class TaskDeleteView(AuthRequiredMixin, AuthorDeletionMixin, SuccessMessageMixin
     author_url = reverse_lazy('tasks_index')
     extra_context = {'title': _('Delete task'), 'button_text': _('Yes, delete')}
 
-    # def dispatch(self, request, *args, **kwargs):
-    #     if request.user.id != self.get_object().author.id and not request.user.is_anonymous:
-    #         messages.error(self.request, self.author_message)
-    #         return redirect(self.author_url)
-    #     return super().dispatch(request, *args, **kwargs)
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.id != self.get_object().author.id and not request.user.is_anonymous:
+            messages.error(self.request, self.author_message)
+            return redirect(self.author_url)
+        return super().dispatch(request, *args, **kwargs)

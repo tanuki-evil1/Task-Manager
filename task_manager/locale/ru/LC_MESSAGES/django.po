@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-06 09:31+0300\n"
+"POT-Creation-Date: 2024-08-06 09:44+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -237,15 +237,15 @@ msgstr "Менеджер задач"
 
 #: task_manager/templates/index.html:11
 msgid "Hello from Tanuki!"
-msgstr ""
+msgstr "Привет от Тануки"
 
 #: task_manager/templates/index.html:12
 msgid "Backend Python Developer"
-msgstr ""
+msgstr "Backend Python Developer"
 
 #: task_manager/templates/index.html:15
 msgid "Learn more"
-msgstr ""
+msgstr "Узнать больше"
 
 #: task_manager/templates/labels/delete.html:8
 #: task_manager/templates/statuses/delete.html:8
@@ -307,12 +307,8 @@ msgid "Last name"
 msgstr "Фамилия"
 
 #: task_manager/users/tests/test_post.py:57
-msgid ""
-"Enter a valid username. This value may contain only letters, numbers, and "
-"@/./+/-/_ characters."
-msgstr ""
-"Введите правильное имя пользователя. Оно может содержать только буквы, цифры "
-"и знаки @/./+/-/_."
+msgid "Enter a valid username. This value may contain only letters, numbers, and @/./+/-/_ characters."
+msgstr "Введите правильное имя пользователя. Оно может содержать только буквы, цифры и знаки @/./+/-/_."
 
 #: task_manager/users/tests/test_post.py:72
 msgid "A user with that username already exists."
@@ -324,8 +320,7 @@ msgstr "Введенные пароли не совпадают."
 
 #: task_manager/users/tests/test_post.py:154
 msgid "This password is too short. It must contain at least 3 characters."
-msgstr ""
-"Введённый пароль слишком короткий. Он должен содержать как минимум 3 символа."
+msgstr "Введённый пароль слишком короткий. Он должен содержать как минимум 3 символа."
 
 #: task_manager/users/views.py:24
 msgid "User is successfully registered"
