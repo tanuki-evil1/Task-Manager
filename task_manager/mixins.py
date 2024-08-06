@@ -47,3 +47,14 @@ class UserPermissionMixin:
             return redirect(self.permission_url)
 
         return super().dispatch(request, *args, **kwargs)
+
+
+class AuthorDeletionMixin:
+    author_message = None
+    author_url = None
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.id != self.get_object().author.id:
+            messages.error(self.request, self.author_message)
+            return redirect(self.author_url)
+        return super().dispatch(request, *args, **kwargs)
