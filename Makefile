@@ -1,5 +1,5 @@
 start:
-	poetry run gunicorn task_manager.asgi:application -k uvicorn.workers.UvicornWorker
+	poetry run gunicorn -w 4 -b 0.0.0.0:8000 -k uvicorn.workers.UvicornWorker task_manager.asgi:application
 
 install:
 	poetry install
